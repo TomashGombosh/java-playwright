@@ -2,20 +2,25 @@ package com.tomashgombosh.playwright.pages;
 
 import com.microsoft.playwright.Page;
 import com.tomashgombosh.playwright.components.Header;
+import com.tomashgombosh.playwright.components.NotificationBar;
 import com.tomashgombosh.playwright.components.SearchResult;
 import com.tomashgombosh.playwright.constants.Routes;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
+import static org.awaitility.Awaitility.await;
+
 @Getter
 public class SearchPage extends AbstractAppPage {
     private final Page page;
     private final Header header;
+    private final NotificationBar notificationBar;
     private final SearchResult searchResult;
 
     public SearchPage(final Page page) {
         this.page = page;
         this.header = new Header(page);
+        this.notificationBar = new NotificationBar(page);
         this.searchResult = new SearchResult(page);
     }
 
@@ -30,5 +35,11 @@ public class SearchPage extends AbstractAppPage {
     public void waitForLoad() {
         page.waitForLoadState();
         this.searchResult.getResultsContainer().waitFor();
+    }
+
+    @Step("Wait to search result shown results")
+    public void waitForNonEmptySearchResult() {
+        await()
+                .until(() -> !this.searchResult.getProductLocators().isEmpty());
     }
 }

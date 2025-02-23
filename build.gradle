@@ -10,7 +10,7 @@ apply from: "dependencies.gradle"
 
 repositories {
     mavenLocal()
-    mavenCentral();
+    mavenCentral()
 }
 
 group = "com.tomashgombosh.playwright"
@@ -61,20 +61,24 @@ static def getEnvOrProperty(String envName, String propertyName, String defaultV
     return System.getenv(envName) ?: System.getProperty(propertyName) ?: defaultValue
 }
 
-def browser = getEnvOrProperty("BROWSER", "browser", "chromium");
+def browser = getEnvOrProperty("BROWSER", "browser", "chromium")
+def appUrl = getEnvOrProperty("APP_URL", "app.url", "https://demowebshop.tricentis.com")
 def tags = getEnvOrProperty("TAGS", "tags", "all")
 
 test {
     testLogging.showStandardStreams = true
     systemProperties = System.properties + [
             "file.encoding": encoding,
+            "allure.results.directory": "$rootDir/build/allure-results",
             "browser"      : browser,
+            "app.url"      : appUrl,
     ] as Map<String, ?>
     maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 
     println "====================================="
     println "Running tests with the following properties:"
     println "Browser: $browser"
+    println "App URL: $appUrl"
     println "tags: $tags"
     println "Max parallel forks: $maxParallelForks"
     println "====================================="

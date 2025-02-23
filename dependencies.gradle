@@ -2,7 +2,7 @@ import java.nio.charset.StandardCharsets
 
 repositories {
     mavenLocal()
-    mavenCentral();
+    mavenCentral()
 }
 
 ext {
@@ -13,6 +13,8 @@ ext {
     testNgVersion = "7.10.2"
     playwrightVersion = "1.49.0"
     allureVersion = "2.29.1"
+    awaitilityVersion = "4.2.2"
+    fakerVersion = "2.4.2"
 }
 
 dependencies {
@@ -23,11 +25,14 @@ dependencies {
 
     implementation("com.microsoft.playwright:playwright:$playwrightVersion")
     implementation("io.qameta.allure:allure-testng:$allureVersion")
+    implementation("org.awaitility:awaitility:$awaitilityVersion")
+
 
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     testImplementation("org.testng:testng:$testNgVersion")
     testImplementation("org.assertj:assertj-core:$assertJVersion")
+    testImplementation ("net.datafaker:datafaker:$fakerVersion")
 
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
 }

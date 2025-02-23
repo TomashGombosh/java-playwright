@@ -15,21 +15,25 @@ public class SearchResult {
     private final Locator container;
     private final Locator title;
     private final Locator resultsContainer;
-    private final List<Locator> products;
+    private final Locator productsLocator;
 
     public SearchResult(final Page page) {
         this.page = page;
-        this.container = page.locator("[class*=search-page]");
-        this.title = container.locator("h1");
-        this.resultsContainer = container.locator("[class*=search-results]");
-        this.products = this.resultsContainer.locator("[class*=item-box]").all();
+        this.container =  this.page.locator("[class*=search-page]");
+        this.title =  this.container.locator("h1");
+        this.resultsContainer =  this.container.locator("[class*=search-results]");
+        this.productsLocator =  this.resultsContainer.locator("[class*=item-box]");
+    }
+
+    public List<Locator> getProductLocators() {
+        return this.productsLocator.all();
     }
 
     public List<Product> getProducts() {
-        return this.products
+        return this.getProductLocators()
                 .stream()
                 .parallel()
-                .map(Product::new)
+                .map(root -> Product.withDefaults(root).build())
                 .toList();
     }
 }

@@ -1,7 +1,5 @@
 package com.tomashgombosh.playwright.model;
 
-import java.util.regex.Pattern;
-
 import com.microsoft.playwright.Locator;
 import lombok.Builder;
 
@@ -13,18 +11,19 @@ public record Product (
         double price,
         Locator addToCartButton
 ) {
-    private static final String PRODUCT_NAME_LOCATOR = "[class*=product-title]";
-    private static final String PRODUCT_RATING_LOCATOR = "[class*=rating]";
-    private static final String PRODUCT_PRICE_LOCATOR = "[class*=price]";
-    private static final Pattern RATING_PATTER = Pattern.compile("\\d+[%]");
+    private static final String PRODUCT_NAME_LOCATOR = "[class*=product-title] a";
+    private static final String PRODUCT_RATING_LOCATOR = "[class=rating]";
+    private static final String PRODUCT_PRICE_LOCATOR = "[class='price actual-price']";
 
-    public Product(final Locator root) {
-        this (
-                root,
-                root.locator(PRODUCT_NAME_LOCATOR).innerText(),
-                RATING_PATTER.matcher(root.locator(PRODUCT_RATING_LOCATOR).getAttribute("style")).group(),
-                Double.parseDouble(root.locator(PRODUCT_PRICE_LOCATOR).innerText()),
-                root.locator("[type=button]")
-        );
+    public static ProductBuilder withDefaults(final Locator root) {
+        final var nameLocator = root.locator(PRODUCT_NAME_LOCATOR);
+        final var ratingLocator = root.locator(PRODUCT_RATING_LOCATOR).locator("div");
+        final var priceLocator = root.locator(PRODUCT_PRICE_LOCATOR);
+        nameLocator.waitFor();
+        return Product.builder().root(root)
+                .name(nameLocator.textContent())
+                .rating(ratingLocator.getAttribute("style").replaceAll("[a-z: ]", ""))
+                .price(Double.parseDouble(priceLocator.textContent()))
+                .addToCartButton(root.locator("[type=button]"));
     }
 }

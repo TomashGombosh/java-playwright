@@ -16,7 +16,7 @@ public class Header {
 
     public Header(final Page page) {
         this.page = page;
-        this.container = page.locator("header");
+        this.container = page.locator("[class*=header]");
         this.shoppingCart = container.locator("#topcartlink");
         this.searchInput = container.locator("#small-searchterms");
         this.searchButton = container.locator("[type=submit]");
