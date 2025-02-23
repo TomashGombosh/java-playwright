@@ -5,8 +5,5 @@
     <suppress checks="Javadoc" files=".*[\\/]src[\\/](main|test)[\\/]"/>
     <suppress checks="NonEmptyAtclauseDescription" files=".*[\\/]src[\\/](main|test)[\\/]"/>
     <suppress checks="ClassFanOutComplexity" files=".*[\\/]src[\\/](main|test)[\\/]"/>
-    <suppress checks="ExecutableStatementCount" files=".*.ConsultingAgreementFactory"/>
-    <suppress checks="NPathComplexity" files=".*.ConsultingAgreementFactory"/>
-    <suppress checks="ClassFanOutComplexity" files=".*.CoreModule"/>
-    <suppress checks="MethodCount" files=".*.(Details|HopperOffer|HopperRequest)"/>
+    <suppress checks="HideUtilityClassConstructor" files="Routes.java" />
 </suppressions>

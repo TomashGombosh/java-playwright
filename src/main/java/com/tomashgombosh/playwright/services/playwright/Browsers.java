@@ -1,4 +1,4 @@
-package com.tomashgombosh.playwright.extensions.enums;
+package com.tomashgombosh.playwright.services.playwright;
 
 public enum Browsers {
     CHROMIUM,

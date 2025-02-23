@@ -2,41 +2,61 @@ package com.tomashgombosh.playwright;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Page;
-import com.tomashgombosh.playwright.extensions.BrowserExtension;
+import com.microsoft.playwright.Playwright;
 import org.assertj.core.api.WithAssertions;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.RegisterExtension;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import com.tomashgombosh.playwright.pages.MainPage;
+import com.tomashgombosh.playwright.pages.SearchPage;
+import com.tomashgombosh.playwright.pages.ShoppingCartPage;
+import com.tomashgombosh.playwright.services.playwright.BrowserFactory;
+import com.tomashgombosh.playwright.services.playwright.PlaywrightFactory;
+
+import static java.util.Objects.nonNull;
+
 public class Setup implements WithAssertions {
 
+    protected Playwright playwright;
     protected Browser browser;
     protected Page page;
+    protected MainPage mainPage;
+    protected SearchPage searchPage;
+    protected ShoppingCartPage shoppingCartPage;
 
-    @RegisterExtension
-    private static final BrowserExtension BROWSER_EXTENSION = new BrowserExtension();
+    @BeforeTest(alwaysRun = true)
+    public void initBrowserAndPage() {
+        playwright = new PlaywrightFactory().create();
+        browser = new BrowserFactory()
+                .playwright(playwright)
+                .create();
 
-    @BeforeAll
-    void setup() {
-        browser = BROWSER_EXTENSION.getBrowser();
     }
 
-    @BeforeEach
-    void startPage() {
+    @BeforeMethod(alwaysRun = true)
+    public void initPage() {
         page = browser.newPage();
+        mainPage = new MainPage(page);
+        searchPage = new SearchPage(page);
+        shoppingCartPage = new ShoppingCartPage(page);
     }
 
-    @AfterEach
-    void closePage() {
-        page.close();
+    @AfterMethod(alwaysRun = true)
+    public void closePage() {
+        if (nonNull(page)) {
+            page.close();
+        }
     }
 
-    @AfterAll
-    void tearDown() {
-        browser.close();
+    @AfterTest(alwaysRun = true)
+    public void closePageAndBrowser() {
+        if (nonNull(browser)) {
+            browser.close();
+        }
+        if (nonNull(playwright)) {
+            playwright.close();
+        }
     }
 }

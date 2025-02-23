@@ -2,7 +2,7 @@ import java.nio.charset.StandardCharsets
 
 repositories {
     mavenLocal()
-    mavenCentral();
+    mavenCentral()
 }
 
 ext {
@@ -10,8 +10,11 @@ ext {
     spotbugVersion = "4.8.6"
     lombokVersion = "1.18.36"
     assertJVersion = "3.27.3"
-    junitVersion = "5.11.4"
+    testNgVersion = "7.10.2"
     playwrightVersion = "1.49.0"
+    allureVersion = "2.29.1"
+    awaitilityVersion = "4.2.2"
+    fakerVersion = "2.4.2"
 }
 
 dependencies {
@@ -20,10 +23,16 @@ dependencies {
     compileOnly("com.github.spotbugs:spotbugs-annotations:$spotbugVersion")
     compileOnly("org.projectlombok:lombok:$lombokVersion")
 
+    implementation("com.microsoft.playwright:playwright:$playwrightVersion")
+    implementation("io.qameta.allure:allure-testng:$allureVersion")
+    implementation("org.awaitility:awaitility:$awaitilityVersion")
+
+
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation("org.testng:testng:$testNgVersion")
     testImplementation("org.assertj:assertj-core:$assertJVersion")
-    testImplementation("com.microsoft.playwright:playwright:$playwrightVersion")
+    testImplementation ("net.datafaker:datafaker:$fakerVersion")
+
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
 }
