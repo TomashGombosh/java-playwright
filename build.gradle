@@ -1,0 +1,88 @@
+plugins {
+    id "java"
+    id "checkstyle"
+    id "pmd"
+    id "com.github.spotbugs" version "6.1.3"
+}
+
+apply from: "dependencies.gradle"
+
+repositories {
+    mavenLocal()
+    mavenCentral();
+}
+
+group = "com.tomashgombosh.playwright"
+version = "1.0.0"
+description = "Java samples for the playwright automation"
+java.sourceCompatibility = JavaVersion.VERSION_21
+java.targetCompatibility = JavaVersion.VERSION_21
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = "UTF-8"
+}
+
+spotbugsMain {
+    excludeFilter = file("findbugs-exclude.xml")
+}
+
+checkstyle {
+    toolVersion = "10.21.2"
+}
+
+pmd {
+    consoleOutput = true
+    ruleSetFiles = files("config/pmd/ruleSet.xml")
+    ruleSets = []
+    toolVersion = "7.10.0"
+}
+
+tasks.register("validate") {
+    dependsOn "checkstyleMain"
+    dependsOn "checkstyleTest"
+    dependsOn "pmdMain"
+    dependsOn "pmdTest"
+    dependsOn "spotbugsMain"
+    dependsOn "spotbugsTest"
+    tasks.named("checkstyleMain")
+    tasks.named("checkstyleTest")
+    tasks.named("pmdMain")
+    tasks.named("pmdTest")
+    tasks.named("spotbugsMain")
+    tasks.named("spotbugsTest")
+}
+
+static def getEnvOrProperty(String envName, String propertyName, String defaultValue) {
+    return System.getenv(envName) ?: System.getProperty(propertyName) ?: defaultValue
+}
+
+def browser = getEnvOrProperty("BROWSER", "browser", "chromium");
+def tags = getEnvOrProperty("TAGS", "tags", "smoke")
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties = System.properties + [
+            "file.encoding": encoding,
+            "browser"      : browser,
+    ] as Map<String, ?>
+    maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
+
+    println "====================================="
+    println "Running tests with the following properties:"
+    println "Browser: $browser"
+    println "tags: $tags"
+    println "Max parallel forks: $maxParallelForks"
+    println "====================================="
+
+    useJUnitPlatform() {
+        includeTags tags
+    }
+}
+
+wrapper {
+    gradleVersion = "8.12.1"
+}
