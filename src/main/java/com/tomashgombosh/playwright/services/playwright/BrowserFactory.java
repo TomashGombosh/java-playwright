@@ -1,7 +1,6 @@
 package com.tomashgombosh.playwright.services.playwright;
 
 import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Playwright;
 import com.tomashgombosh.playwright.Factory;
 import lombok.Setter;
@@ -17,7 +16,7 @@ public class BrowserFactory implements Factory<Browser, BrowserFactory> {
     public Browser create() {
         final var browserFromEnv = System.getProperty("browser");
         return switch (Browsers.fromString(browserFromEnv)) {
-            case CHROMIUM -> playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+            case CHROMIUM -> playwright.chromium().launch();
             case FIREFOX -> playwright.firefox().launch();
             case WEBKIT -> playwright.webkit().launch();
         };
