@@ -2,9 +2,10 @@ package com.tomashgombosh.playwright.services.playwright;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Playwright;
-import com.tomashgombosh.playwright.Factory;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import com.tomashgombosh.playwright.Factory;
 
 @Setter
 @Accessors(fluent = true)

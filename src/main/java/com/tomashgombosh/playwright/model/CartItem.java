@@ -2,7 +2,7 @@ package com.tomashgombosh.playwright.model;
 
 import com.microsoft.playwright.Locator;
 
-public record CartItem (
+public record CartItem(
         Locator root,
         Locator removeCheckbox,
         String name,
@@ -12,7 +12,7 @@ public record CartItem (
 ) {
 
     public CartItem(final Locator root) {
-        this (
+        this(
                 root,
                 root.locator("[name=removefromcart]"),
                 root.locator("[class*=product-name]").innerText(),

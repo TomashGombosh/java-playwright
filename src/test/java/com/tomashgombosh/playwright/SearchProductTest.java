@@ -1,11 +1,11 @@
 package com.tomashgombosh.playwright;
 
 import org.assertj.core.api.Condition;
-
-import com.tomashgombosh.playwright.model.Product;
 import org.testng.annotations.Test;
 
-public class SearchProductTest extends BaseTest {
+import com.tomashgombosh.playwright.model.Product;
+
+public class SearchProductTest extends Setup {
     private static final String PRODUCT_NAME = "Laptop";
 
     @Test(description = "Search and Product Cart", groups = {"search", "all"})

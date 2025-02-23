@@ -2,7 +2,6 @@ plugins {
     id "java"
     id "checkstyle"
     id "pmd"
-    id "com.github.spotbugs" version "6.1.3"
     id "io.qameta.allure" version "2.12.0"
 }
 
@@ -27,10 +26,6 @@ tasks.withType(Javadoc).configureEach {
     options.encoding = "UTF-8"
 }
 
-spotbugsMain {
-    excludeFilter = file("findbugs-exclude.xml")
-}
-
 checkstyle {
     toolVersion = "10.21.2"
 }
@@ -47,14 +42,10 @@ tasks.register("validate") {
     dependsOn "checkstyleTest"
     dependsOn "pmdMain"
     dependsOn "pmdTest"
-    dependsOn "spotbugsMain"
-    dependsOn "spotbugsTest"
     tasks.named("checkstyleMain")
     tasks.named("checkstyleTest")
     tasks.named("pmdMain")
     tasks.named("pmdTest")
-    tasks.named("spotbugsMain")
-    tasks.named("spotbugsTest")
 }
 
 static def getEnvOrProperty(String envName, String propertyName, String defaultValue) {

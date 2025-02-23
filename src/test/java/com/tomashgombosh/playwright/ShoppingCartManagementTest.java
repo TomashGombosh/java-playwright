@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import com.tomashgombosh.playwright.model.CartItem;
 import net.datafaker.Faker;
-
-import com.tomashgombosh.playwright.model.Product;
 import org.testng.annotations.Test;
 
-public class ShoppingCartManagementTest extends BaseTest {
+import com.tomashgombosh.playwright.model.CartItem;
+import com.tomashgombosh.playwright.model.Product;
+
+public class ShoppingCartManagementTest extends Setup {
     private static final Faker FAKER = new Faker();
     private static final int MAX_QUANTITY = 12;
     private static final int MIN_QUANTITY = 2;

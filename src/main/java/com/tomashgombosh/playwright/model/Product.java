@@ -4,7 +4,7 @@ import com.microsoft.playwright.Locator;
 import lombok.Builder;
 
 @Builder
-public record Product (
+public record Product(
         Locator root,
         String name,
         String rating,

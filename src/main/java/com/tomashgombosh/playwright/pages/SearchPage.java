@@ -1,12 +1,13 @@
 package com.tomashgombosh.playwright.pages;
 
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Step;
+import lombok.Getter;
+
 import com.tomashgombosh.playwright.components.Header;
 import com.tomashgombosh.playwright.components.NotificationBar;
 import com.tomashgombosh.playwright.components.SearchResult;
 import com.tomashgombosh.playwright.constants.Routes;
-import io.qameta.allure.Step;
-import lombok.Getter;
 
 import static org.awaitility.Awaitility.await;
 

@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.tomashgombosh.playwright.model.CartItem;
 import lombok.Getter;
+
+import com.tomashgombosh.playwright.model.CartItem;
 
 @Getter
 public class ShoppingCart {

@@ -1,11 +1,12 @@
 package com.tomashgombosh.playwright.pages;
 
 import com.microsoft.playwright.Page;
+import lombok.AccessLevel;
+import lombok.Getter;
+
 import com.tomashgombosh.playwright.components.Header;
 import com.tomashgombosh.playwright.components.ShoppingCart;
 import com.tomashgombosh.playwright.constants.Routes;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 @Getter
 public class ShoppingCartPage extends AbstractAppPage {
