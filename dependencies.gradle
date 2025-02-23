@@ -10,8 +10,9 @@ ext {
     spotbugVersion = "4.8.6"
     lombokVersion = "1.18.36"
     assertJVersion = "3.27.3"
-    junitVersion = "5.11.4"
+    testNgVersion = "7.10.2"
     playwrightVersion = "1.49.0"
+    allureVersion = "2.29.1"
 }
 
 dependencies {
@@ -20,10 +21,13 @@ dependencies {
     compileOnly("com.github.spotbugs:spotbugs-annotations:$spotbugVersion")
     compileOnly("org.projectlombok:lombok:$lombokVersion")
 
+    implementation("com.microsoft.playwright:playwright:$playwrightVersion")
+    implementation("io.qameta.allure:allure-testng:$allureVersion")
+
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation("org.testng:testng:$testNgVersion")
     testImplementation("org.assertj:assertj-core:$assertJVersion")
-    testImplementation("com.microsoft.playwright:playwright:$playwrightVersion")
+
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
 }

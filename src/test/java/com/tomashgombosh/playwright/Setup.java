@@ -2,41 +2,55 @@ package com.tomashgombosh.playwright;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Page;
-import com.tomashgombosh.playwright.extensions.BrowserExtension;
+import com.microsoft.playwright.Playwright;
+import com.tomashgombosh.playwright.pages.MainPage;
+import com.tomashgombosh.playwright.pages.SearchPage;
+import com.tomashgombosh.playwright.services.playwright.BrowserFactory;
+import com.tomashgombosh.playwright.services.playwright.PlaywrightFactory;
 import org.assertj.core.api.WithAssertions;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.RegisterExtension;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import static java.util.Objects.nonNull;
+
 public class Setup implements WithAssertions {
 
+    protected Playwright playwright;
     protected Browser browser;
     protected Page page;
+    protected MainPage mainPage;
+    protected SearchPage searchPage;
 
-    @RegisterExtension
-    private static final BrowserExtension BROWSER_EXTENSION = new BrowserExtension();
-
-    @BeforeAll
-    void setup() {
-        browser = BROWSER_EXTENSION.getBrowser();
+    @BeforeSuite
+    public void setupPlaywright() {
+        playwright = new PlaywrightFactory().create();
     }
 
-    @BeforeEach
-    void startPage() {
+    @BeforeClass
+    public void initBrowserAndPage() {
+        browser = new BrowserFactory().create();
         page = browser.newPage();
+        mainPage = new MainPage(page);
+        searchPage = new SearchPage(page);
     }
 
-    @AfterEach
-    void closePage() {
-        page.close();
+    @AfterClass
+    public void closePageAndBrowser() {
+        if (nonNull(page)) {
+            page.close();
+        }
+        if (nonNull(browser)) {
+            browser.close();
+        }
     }
 
-    @AfterAll
-    void tearDown() {
-        browser.close();
+    @AfterSuite
+    public void tearDown() {
+        if (nonNull(playwright)) {
+            playwright.close();
+        }
     }
 }
