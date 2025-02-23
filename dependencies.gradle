@@ -1,0 +1,29 @@
+import java.nio.charset.StandardCharsets
+
+repositories {
+    mavenLocal()
+    mavenCentral();
+}
+
+ext {
+    encoding = StandardCharsets.UTF_8.toString()
+    spotbugVersion = "4.8.6"
+    lombokVersion = "1.18.36"
+    assertJVersion = "3.27.3"
+    junitVersion = "5.11.4"
+    playwrightVersion = "1.49.0"
+}
+
+dependencies {
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    compileOnly("com.github.spotbugs:spotbugs-annotations:$spotbugVersion")
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+
+    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation("org.assertj:assertj-core:$assertJVersion")
+    testImplementation("com.microsoft.playwright:playwright:$playwrightVersion")
+    testCompileOnly("org.projectlombok:lombok:$lombokVersion")
+}
