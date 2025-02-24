@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import com.tomashgombosh.playwright.model.CartItem;
 import com.tomashgombosh.playwright.model.Product;
 
-public class ShoppingCartManagementTest extends Setup {
+public class CartManagementTest extends Setup {
     private static final Faker FAKER = new Faker();
     private static final int MAX_QUANTITY = 12;
     private static final int MIN_QUANTITY = 2;
@@ -26,7 +26,7 @@ public class ShoppingCartManagementTest extends Setup {
         searchPage.waitForLoad();
         searchPage.waitForNonEmptySearchResult();
 
-        final var products = searchPage.getSearchResult().getProducts();
+        final var products = searchPage.getResult().getProducts();
         final var defaultPrice = products.stream().map(Product::price).mapToDouble(Double::doubleValue).sum();
         products.forEach(product -> {
             product.addToCartButton().click();
@@ -37,26 +37,26 @@ public class ShoppingCartManagementTest extends Setup {
         searchPage.getHeader().getShoppingCart().click();
         shoppingCartPage.waitForLoad();
 
-        final var shoppingCartPrice = Double.parseDouble(shoppingCartPage.getShoppingCart().getTotalPrice().innerText());
+        final var shoppingCartPrice = Double.parseDouble(shoppingCartPage.getCart().getTotalPrice().innerText());
         assertThat(defaultPrice)
                 .as("Default total price is not correct")
                 .isEqualTo(shoppingCartPrice);
 
-        final var cartItems = shoppingCartPage.getShoppingCart().getCartItems();
+        final var cartItems = shoppingCartPage.getCart().getCartItems();
 
         final var newTotalPrice = IntStream.of(0, cartItems.size() - 1)
                 .mapToObj(i -> {
                     final var newQuantity = getNewQuantity();
-                    shoppingCartPage.getShoppingCart().getCartItems().get(i).quantityInput().fill(String.valueOf(newQuantity));
+                    shoppingCartPage.getCart().getCartItems().get(i).quantityInput().fill(String.valueOf(newQuantity));
                     return Map.of(i, newQuantity);
                 })
                 .map(priceCartItemMap -> this.getNewPrice(priceCartItemMap, cartItems))
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
-        shoppingCartPage.getShoppingCart().getUpdateCartButton().click();
+        shoppingCartPage.getCart().getUpdateCartButton().click();
 
-        final var newShoppingCartPrice = Double.parseDouble(shoppingCartPage.getShoppingCart().getTotalPrice().innerText());
+        final var newShoppingCartPrice = Double.parseDouble(shoppingCartPage.getCart().getTotalPrice().innerText());
 
         assertThat(newTotalPrice)
                 .as("Total price is not correct")

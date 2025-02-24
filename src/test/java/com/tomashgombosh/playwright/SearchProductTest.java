@@ -20,7 +20,7 @@ public class SearchProductTest extends Setup {
         searchPage.waitForLoad();
         searchPage.waitForNonEmptySearchResult();
 
-        assertThat(searchPage.getSearchResult().getProducts())
+        assertThat(searchPage.getResult().getProducts())
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("root", "addToCartButton")
                 .areExactly(1, condition);
     }
