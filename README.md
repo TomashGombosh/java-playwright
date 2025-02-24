@@ -55,7 +55,7 @@
      ```powershell
        ./gradlew allureServe
      ```
-     Or bash/zsh
+  * Run bash/zsh
      ```shell
        ./gradlew allureServe
      ```
@@ -65,7 +65,7 @@
       ```powershell
         ./gradlew allureServe
       ```
-      Or bash/zsh
+    * Run bash/zsh
       ```shell
         ./gradlew allureServe
       ```
@@ -76,7 +76,7 @@
   ```powershell
     ./gradlew clean validate
   ```
-  Or bash/zsh
+* Run bash/zsh
   ```shell
     ./gradlew clean validate
   ```
