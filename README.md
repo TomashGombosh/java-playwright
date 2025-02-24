@@ -14,7 +14,7 @@
 
 ##### Install and Setup Java
 
-1. Install Java 18 or higher on your local machine. To download Java21 jdk click on [that](https://www.oracle.com/uk/java/technologies/downloads/) and install java for Windows.
+1. Install Java 21 or higher on your local machine. To download Java21 jdk click on [that](https://www.oracle.com/uk/java/technologies/downloads/) and install java for Windows.
 1. To set up JAVA_HOME follow the next steps:
     1. Click the left button of the mouse on the 'My computer' icon and choose 'Settings' in the drop-down list;
     1. In the 'System' window click 'Additional parameters of the system';
