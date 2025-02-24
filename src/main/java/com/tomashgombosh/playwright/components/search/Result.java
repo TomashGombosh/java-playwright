@@ -1,4 +1,4 @@
-package com.tomashgombosh.playwright.components;
+package com.tomashgombosh.playwright.components.search;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 import com.tomashgombosh.playwright.model.Product;
 
 @Getter
-public class SearchResult {
+public class Result {
     @Getter(AccessLevel.NONE)
     private final Page page;
     private final Locator container;
@@ -18,7 +18,7 @@ public class SearchResult {
     private final Locator resultsContainer;
     private final Locator productsLocator;
 
-    public SearchResult(final Page page) {
+    public Result(final Page page) {
         this.page = page;
         this.container = this.page.locator("[class*=search-page]");
         this.title = this.container.locator("h1");

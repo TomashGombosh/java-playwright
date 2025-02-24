@@ -1,4 +1,4 @@
-package com.tomashgombosh.playwright.components;
+package com.tomashgombosh.playwright.components.shopping;
 
 import java.util.List;
 
@@ -9,14 +9,14 @@ import lombok.Getter;
 import com.tomashgombosh.playwright.model.CartItem;
 
 @Getter
-public class ShoppingCart {
+public class Cart {
     private final Page page;
     private final Locator container;
     private final Locator items;
     private final Locator updateCartButton;
     private final Locator totalPrice;
 
-    public ShoppingCart(final Page page) {
+    public Cart(final Page page) {
         this.page = page;
         this.container = page.locator("form[action='/cart']");
         this.items = container.locator("[class='cart-item-row']");

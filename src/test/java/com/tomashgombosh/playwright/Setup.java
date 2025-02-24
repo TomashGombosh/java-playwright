@@ -9,9 +9,9 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
-import com.tomashgombosh.playwright.pages.MainPage;
-import com.tomashgombosh.playwright.pages.SearchPage;
-import com.tomashgombosh.playwright.pages.ShoppingCartPage;
+import com.tomashgombosh.playwright.pages.main.MainPage;
+import com.tomashgombosh.playwright.pages.search.SearchPage;
+import com.tomashgombosh.playwright.pages.shopping.ShoppingCartPage;
 import com.tomashgombosh.playwright.services.playwright.BrowserFactory;
 import com.tomashgombosh.playwright.services.playwright.PlaywrightFactory;
 

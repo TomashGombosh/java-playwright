@@ -1,4 +1,4 @@
-package com.tomashgombosh.playwright.pages;
+package com.tomashgombosh.playwright.pages.main;
 
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import com.tomashgombosh.playwright.components.Header;
 import com.tomashgombosh.playwright.constants.Routes;
+import com.tomashgombosh.playwright.pages.AbstractAppPage;
 
 @Getter
 public class MainPage extends AbstractAppPage {
