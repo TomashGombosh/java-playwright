@@ -9,8 +9,11 @@
 * [Validate using gradle](#validate)
 
 ### Preconditions
+
 <h4 id="windows">Windows</h4>
+
 ##### Install and Setup Java
+
 1. Install Java 18 or higher on your local machine. To download Java21 jdk click on [that](https://www.oracle.com/uk/java/technologies/downloads/) and install java for Windows.
 1. To set up JAVA_HOME follow the next steps:
     1. Click the left button of the mouse on the 'My computer' icon and choose 'Settings' in the drop-down list;
@@ -26,6 +29,7 @@
 1. Restart
 
 <h4 id="macos">Mac OS</h4>
+
 1. Install with Homebrew
     1. Install Homebrew using the command (*if the homebrew already installed into you mac os skip that step*) ``/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"``
     1. Install java 21 using command `brew install openjdk`
@@ -34,6 +38,7 @@
     1. Restart 
 
 <h3 id="idea">Run using IDE</h3>
+
 * Install `IntelliJ IDEA` IDE
 * Install _Lombok Plugin_: `IntelliJ IDEA > Preferences > Plugins > Browse repositories > Lombok Plugin`
 * _Enable annotation processing_: `IntelliJ IDEA > Preferences > Build, Execution, Deployment > Compiler > Annotation Processors > Enable annotation processing`
@@ -42,6 +47,7 @@
 * Go to the `src/test/java/com/tomashgombosh` click on the right button and click ``Run 'Test' in 'com.tomashgombosh...'``
 
 <h3 id="run-gradle">Run using gradle</h3>
+
 * Checkout project from git
 * Go to the checkout folder using ``cd java-playwright``
 * Start test using 
@@ -65,6 +71,7 @@
       ```
 
 <h3 id="validate">Validate and test using gradle</h3>
+
 * Run powershell
   ```powershell
     ./gradlew clean validate
